@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import json
 
 adress = 'https://cdn.pik.ru/sitemap/pik/flats.xml'
 
@@ -40,11 +41,24 @@ fFlats = open("outFlats.txt", "a")  # append mode
 for flatId in flatsArray:
     print(flatId)
     requestString = "https://api-selectel.pik-service.ru/v2/flat/mortgage?flatId=" + flatId + "&loanTerm=30&benefitId=114418"
-    print(requestString)
+    #print(requestString)
     r = requests.get(requestString)
-    print("parse response")
     unicode = r.text
+
+    unicodeDict = json.loads(unicode)
+
+
+    if unicodeDict.get('benefits'):
+             benifitsObj = unicodeDict['benefits']
+             #print(benifitsObj)
+             if benifitsObj.get('cash'):                 
+                      print(benifitsObj['cash'])
     fFlats.write(unicode + "\n")
+
+    
+
+    
+    
 
 fFlats.close()
 
