@@ -27,6 +27,14 @@ for loc in sitemapLocs:
      #print(flatId)
 
 
+
+#uni = "\u041f\u043e\u043b\u043d\u0430\u044f \u043e\u043f\u043b\u0430\u0442\u0430"
+#print(uni)
+#uttf8text = uni.encode('utf-8')
+#uttf8text = uttf8text.decode('utf-8')
+#print(uttf8text)
+
+
 fFlats = open("outFlats.txt", "a")  # append mode
 
 for flatId in flatsArray:
@@ -35,7 +43,10 @@ for flatId in flatsArray:
     print(requestString)
     r = requests.get(requestString)
     print("parse response")
-    fFlats.write(r.text + "\n")
+    unicode = r.text
+    fFlats.write(unicode + "\n")
 
 fFlats.close()
+
+
 
