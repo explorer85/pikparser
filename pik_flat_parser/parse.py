@@ -51,10 +51,10 @@ def get_all_flats():
     all_count = size
 
     try:
-        while page <= math.ceil(all_count // size):
+        while page <= math.ceil(all_count // size)+1:
             settings_params['flatPage'] = page
          
-            print("get all flats", all_count)
+            print("get all flats", math.ceil(all_count /  size))
          
             while True:
                 try:
