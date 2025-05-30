@@ -132,7 +132,7 @@ def send_telegram(uid, message):
     chat_id = "316675197"
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
     print(requests.get(url).json()) # Эта строка отсылает сообщение
-    return true
+    return True
 
 
 def just_print(message):
