@@ -128,26 +128,11 @@ def save_data_flats_queue(flats):
 
 
 def send_telegram(uid, message):
-    try:
-        result = requests.post(
-            url = settings.get('host') + '/message',
-            json = {
-                'id': uid,
-                'sender': settings.get('sender'),
-                'text': message,
-            },
-            headers = {
-                'token': settings.get('token'),
-            }
-        )
-
-        print(message)
-
-        return result.status_code == 200 and result.json().get('success')
-    except Exception as e:
-        print(e)
-
-    return False
+    TOKEN = "751491094:AAG4MdHoCf70Pgfi2XtdXPTEggmPIGBn0FU"
+    chat_id = "316675197"
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+    print(requests.get(url).json()) # Эта строка отсылает сообщение
+    return true
 
 
 def just_print(message):
@@ -355,6 +340,7 @@ def tick():
 
 def main():
   
+  #send_telegram(1111, "zzzzzzzzzzzzzz")
     
     tick()
     
