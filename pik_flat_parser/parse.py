@@ -341,26 +341,26 @@ def tick():
 def main():
   
   #send_telegram(1111, "zzzzzzzzzzzzzz")
+        
+        
+    while not settings.get('use_cron', False):
+        now_time = int(time.time())
+
+        sleep_time = max(settings_system['time'] - now_time, 0)
+        sleep_time = sleep_time + random.uniform(1, 30)
+
+        print(f'Спим {sleep_time} секунд.\nВремя: {datetime.datetime.fromtimestamp(settings_system["time"]).strftime("%d.%m.%y %H:%M:%S")}')
+
+        time.sleep(sleep_time)
+
+        tick()
+
+        settings_system['time'] = int(time.time()) + settings['await_time']
+
+        jsona_system.save_json(data = settings_system, ident=4)
     
-    tick()
-    
-    #while not settings.get('use_cron', False):
-        #now_time = int(time.time())
-
-        #sleep_time = max(settings_system['time'] - now_time, 0)
-
-        #print(f'Спим {sleep_time} секунд.\nВремя: {datetime.datetime.fromtimestamp(settings_system["time"]).strftime("%d.%m.%y %H:%M:%S")}')
-
-        #time.sleep(sleep_time)
-
-        #tick()
-
-        #settings_system['time'] = int(time.time()) + settings['await_time']
-
-        #jsona_system.save_json(data = settings_system, ident=4)
-
-    #if settings.get('use_cron', False):
-        #tick()
+    if settings.get('use_cron', False):
+        tick()
 
 
 if __name__ == '__main__':
