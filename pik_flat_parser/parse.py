@@ -338,13 +338,21 @@ def tick():
     process_flats()
 
 
+def is_night():
+    now = datetime.datetime.now()
+    print("is_night? now ", now)
+    current_hour = now.hour
+    # Define nighttime hours 
+    return current_hour < 5 or current_hour >= 22    
+
+
 def main():
   
-  #send_telegram(1111, "zzzzzzzzzzzzzz")
-        
-        
+      
     while not settings.get('use_cron', False):
         now_time = int(time.time())
+
+        
 
         sleep_time = max(settings_system['time'] - now_time, 0)
         sleep_time = sleep_time + random.uniform(1, 30)
@@ -353,7 +361,8 @@ def main():
 
         time.sleep(sleep_time)
 
-        tick()
+        if not is_night():
+            tick()
 
         settings_system['time'] = int(time.time()) + settings['await_time']
 
